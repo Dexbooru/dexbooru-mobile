@@ -22,6 +22,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" />
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="(auth)" />
+            <Stack.Screen name="oauth" />
             <Stack.Screen name="tags" />
             <Stack.Screen name="artists" />
             <Stack.Screen name="comments" />

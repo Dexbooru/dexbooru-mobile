@@ -32,4 +32,10 @@ export const queryKeys = {
     byUser: (authorId: string) => ['comments', 'user', authorId] as const,
   },
   config: ['application-configuration'] as const,
+  oauth: {
+    authorizationUrls: ['oauth', 'authorization-urls'] as const,
+  },
+  totp: {
+    challenge: (challengeId: string) => ['totp', 'challenge', challengeId] as const,
+  },
 };

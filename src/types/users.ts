@@ -1,3 +1,5 @@
+import type { TFriendStatus } from '@/types/friends';
+
 export type UserRole = 'OWNER' | 'MODERATOR' | 'USER';
 export type UserModerationStatus = 'FLAGGED' | 'UNFLAGGED';
 
@@ -19,6 +21,22 @@ export type TUser = {
   createdAt: string;
   updatedAt: string;
   superRolePromotionAt: string | null;
+  linkedAccounts: TLinkedAccount[];
+};
+
+export type TUserStatistics = {
+  totalPosts: number;
+  totalComments: number;
+  totalLikes: number;
+  averageLikes: number;
+  totalViews: number;
+  averageViews: number;
+};
+
+export type TUserProfile = {
+  targetUser: TUser;
+  friendStatus: TFriendStatus;
+  userStatistics: TUserStatistics;
   linkedAccounts: TLinkedAccount[];
 };
 

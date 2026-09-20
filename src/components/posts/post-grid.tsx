@@ -9,7 +9,6 @@ import {
 
 import { PostCard } from '@/components/posts/post-card';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Text } from '@/components/ui/text';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import type { TPost } from '@/types/posts';
@@ -35,18 +34,6 @@ type GridItem = TPost | { id: string; placeholder: true };
 
 function isPlaceholder(item: GridItem): item is { id: string; placeholder: true } {
   return 'placeholder' in item;
-}
-
-function PostGridSkeletons() {
-  return (
-    <View className="flex-row flex-wrap p-2">
-      {Array.from({ length: 6 }, (_, index) => (
-        <View key={index} className="w-1/2 p-1">
-          <Skeleton className="aspect-square w-full rounded-md" />
-        </View>
-      ))}
-    </View>
-  );
 }
 
 export function PostGrid({
@@ -87,7 +74,11 @@ export function PostGrid({
   }).current;
 
   if (isPending) {
-    return <PostGridSkeletons />;
+    return (
+      <View className="flex-1 items-center justify-center py-16">
+        <ActivityIndicator />
+      </View>
+    );
   }
 
   return (

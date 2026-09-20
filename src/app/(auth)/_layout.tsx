@@ -1,5 +1,9 @@
 import { Stack } from 'expo-router';
 
 export default function AuthLayout() {
-  return <Stack screenOptions={{ headerShown: true, title: 'Dexbooru' }} />;
+  return (
+    <Stack screenOptions={{ headerShown: true, title: 'Dexbooru' }}>
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+    </Stack>
+  );
 }

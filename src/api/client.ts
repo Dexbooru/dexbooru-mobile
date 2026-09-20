@@ -68,6 +68,7 @@ async function toRequestInit(options: ApiRequestOptions = {}): Promise<RequestIn
     headers,
     body,
     redirect: options.redirect,
+    credentials: 'include',
   };
 }
 

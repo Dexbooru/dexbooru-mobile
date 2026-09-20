@@ -18,18 +18,3 @@ export const POST_SORT_OPTIONS: TPostSortOption[] = [
   { label: 'Most commented', orderBy: 'commentCount', ascending: false },
   { label: 'Least commented', orderBy: 'commentCount', ascending: true },
 ];
-
-export function getPostSortLabel(orderBy: TPostOrderByColumn, ascending: boolean): string {
-  return (
-    POST_SORT_OPTIONS.find((option) => option.orderBy === orderBy && option.ascending === ascending)
-      ?.label ?? 'Most recent'
-  );
-}
-
-export function getPostSortValue(orderBy: TPostOrderByColumn, ascending: boolean): string {
-  return `${orderBy}:${ascending ? 'true' : 'false'}`;
-}
-
-export function parsePostSortValue(value: string): TPostSortOption | undefined {
-  return POST_SORT_OPTIONS.find((option) => getPostSortValue(option.orderBy, option.ascending) === value);
-}

@@ -4,9 +4,25 @@ import {
   NSFW_PREVIEW_IMAGE_SUFFIX,
   PREVIEW_IMAGE_SUFFIX,
 } from '@/constants/images';
+import { POST_SORT_OPTIONS, type TPostSortOption } from '@/constants/posts';
 import { NONEXISTENT_USER_ID } from '@/constants/session';
-import type { TPost } from '@/types/posts';
+import type { TPost, TPostOrderByColumn } from '@/types/posts';
 import type { TUserPreferences } from '@/types/users';
+
+export function getPostSortLabel(orderBy: TPostOrderByColumn, ascending: boolean): string {
+  return (
+    POST_SORT_OPTIONS.find((option) => option.orderBy === orderBy && option.ascending === ascending)
+      ?.label ?? 'Most recent'
+  );
+}
+
+export function getPostSortValue(orderBy: TPostOrderByColumn, ascending: boolean): string {
+  return `${orderBy}:${ascending ? 'true' : 'false'}`;
+}
+
+export function parsePostSortValue(value: string): TPostSortOption | undefined {
+  return POST_SORT_OPTIONS.find((option) => getPostSortValue(option.orderBy, option.ascending) === value);
+}
 
 export const GUEST_USER_PREFERENCES: TUserPreferences = {
   userId: NONEXISTENT_USER_ID,

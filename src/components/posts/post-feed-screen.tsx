@@ -14,7 +14,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { getPostSortLabel, getPostSortValue, parsePostSortValue, POST_SORT_OPTIONS } from '@/constants/posts';
+import { POST_SORT_OPTIONS } from '@/constants/posts';
+import { getPostSortLabel, getPostSortValue, parsePostSortValue } from '@/lib/posts';
 import { usePostFeed } from '@/hooks/use-post-feed';
 import type { TPostCategory } from '@/types/posts';
 import { ChevronDown } from 'lucide-react-native';
@@ -43,6 +44,7 @@ export function PostFeedScreen({ category }: PostFeedScreenProps) {
   const [visiblePage, setVisiblePage] = useState(1);
   const title = category === 'liked' ? 'liked' : category === 'uploaded' ? 'uploaded' : 'posts';
   const headerTitle = category === 'liked' ? 'Liked' : category === 'uploaded' ? 'Uploaded' : 'Posts';
+  const sortLabel = getPostSortLabel(feed.orderBy, feed.ascending);
   const hiddenCount = feed.nsfwPosts.length + feed.blacklistedPosts.length;
 
   useEffect(() => {
@@ -57,7 +59,9 @@ export function PostFeedScreen({ category }: PostFeedScreenProps) {
           headerTitleAlign: 'center',
           headerTitle: () => (
             <View className="items-center">
-              <Text className="text-foreground font-semibold">{headerTitle}</Text>
+              <Text className="text-foreground font-semibold" numberOfLines={1}>
+                {headerTitle} · {sortLabel}
+              </Text>
               <Text variant="muted">Page {visiblePage}</Text>
             </View>
           ),
@@ -84,15 +88,15 @@ export function PostFeedScreen({ category }: PostFeedScreenProps) {
             );
           })}
         </View>
-        <View className="flex-row justify-end">
+        <View className="flex-row justify-start">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
-                <Text numberOfLines={1}>{getPostSortLabel(feed.orderBy, feed.ascending)}</Text>
+                <Text numberOfLines={1}>{sortLabel}</Text>
                 <Icon as={ChevronDown} className="size-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" side="bottom" className="w-56">
+            <DropdownMenuContent align="start" side="bottom" className="w-56">
               <DropdownMenuRadioGroup
                 value={getPostSortValue(feed.orderBy, feed.ascending)}
                 onValueChange={(value) => {

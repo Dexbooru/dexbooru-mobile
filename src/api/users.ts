@@ -1,9 +1,9 @@
 import { apiJson, buildApiUrl } from '@/api/client';
 import type { TFriendRequestHandleBody } from '@/types/friends';
-import type { UserRole } from '@/types/users';
+import type { TUserProfile, UserRole } from '@/types/users';
 
-export async function getUser(username: string) {
-  return apiJson(`/api/user/${encodeURIComponent(username)}`);
+export async function getUser(username: string): Promise<TUserProfile> {
+  return apiJson<TUserProfile>(`/api/user/${encodeURIComponent(username)}`);
 }
 
 export async function addFriend(username: string) {
