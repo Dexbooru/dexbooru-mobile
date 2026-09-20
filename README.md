@@ -6,10 +6,14 @@ React Native (Expo SDK 57) client for [Dexbooru](https://github.com/Dexbooru/dex
 
 ```bash
 npm install
-cp .env.example .env
 ```
 
-Point `EXPO_PUBLIC_API_URL` at a running dexbooru-web instance.
+API origin is environment-scoped:
+
+- Development (`npm start`): `.env.development` → `http://localhost:5173`
+- Production / build (`npm run start:build`, `npm run build`): `.env.production` → `https://dexbooru.neetbyte.fun`
+
+Override on your machine with `.env.local` (gitignored). See `.env.example`.
 
 ```bash
 npm start

@@ -13,7 +13,9 @@ export type ApiRequestOptions = {
 };
 
 function getApiBaseUrl(): string {
-  const raw = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:5173';
+  const raw =
+    process.env.EXPO_PUBLIC_API_URL ??
+    (__DEV__ ? 'http://localhost:5173' : 'https://dexbooru.neetbyte.fun');
   return raw.replace(/\/$/, '');
 }
 
@@ -111,7 +113,18 @@ export async function apiJson<T>(path: string, options: ApiRequestOptions = {}):
   const response = await apiFetch(path, options);
   const contentType = response.headers.get('content-type') ?? '';
   const isJson = contentType.includes('application/json');
-  const payload = isJson ? await response.json() : await response.text();
+  let payload: unknown = isJson ? await response.json() : await response.text();
+
+  if (typeof payload === 'string') {
+    const trimmed = payload.trim();
+    if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+      try {
+        payload = JSON.parse(trimmed);
+      } catch {
+        // Keep the raw text when it is not JSON.
+      }
+    }
+  }
 
   if (response.status === 401) {
     await clearSessionCookies();

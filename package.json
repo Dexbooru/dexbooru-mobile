@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "expo start --lan",
-    "start:build": "expo start --lan --no-dev --minify",
+    "start:build": "NODE_ENV=production expo start --lan --no-dev --minify",
     "android": "expo start --android --lan",
     "ios": "expo start --ios --lan",
     "web": "expo start --web",

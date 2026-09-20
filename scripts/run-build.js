@@ -19,7 +19,11 @@ function defaultPlatform() {
   return platform() === 'darwin' ? 'ios' : 'android';
 }
 
-function run(command, args, env = process.env) {
+function productionEnv(extra = process.env) {
+  return { ...extra, NODE_ENV: 'production' };
+}
+
+function run(command, args, env = productionEnv()) {
   const result = spawnSync(command, args, { stdio: 'inherit', env, shell: false });
   if (result.error) {
     console.error(result.error.message);
@@ -43,7 +47,7 @@ async function main() {
   }
 
   if (platformArg === 'android') {
-    const env = await ensureAndroidToolchain(projectRoot);
+    const env = productionEnv(await ensureAndroidToolchain(projectRoot));
     run('npx', ['expo', 'run:android', '--variant', 'release', ...extra], env);
   }
 
@@ -54,6 +58,7 @@ async function main() {
   if (platformArg === 'web') {
     const exported = spawnSync('npx', ['expo', 'export', '--platform', 'web', ...extra], {
       stdio: 'inherit',
+      env: productionEnv(),
       shell: false,
     });
     if (exported.status !== 0) {

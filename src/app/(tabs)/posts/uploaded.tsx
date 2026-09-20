@@ -1,11 +1,5 @@
-import { ScreenStub } from '@/components/screen-stub';
+import { PostFeedScreen } from '@/components/posts/post-feed-screen';
 
 export default function UploadedPostsScreen() {
-  return (
-    <ScreenStub
-      title="Uploaded posts"
-      description="GET /api/posts?category=uploaded or GET /api/user/:username/posts."
-      webPath="/posts/uploaded"
-    />
-  );
+  return <PostFeedScreen category="uploaded" />;
 }

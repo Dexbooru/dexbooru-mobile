@@ -16,7 +16,11 @@ export function createPageNumberPaginator() {
   };
 }
 
-export function getNextPageParam<T>(lastPage: T[], lastPageParam: number, pageSize: number): number | undefined {
-  if (lastPage.length === 0 || lastPage.length < pageSize) return undefined;
+export function getNextPageParam<T>(
+  lastPage: T[] | undefined,
+  lastPageParam: number,
+  pageSize: number,
+): number | undefined {
+  if (!Array.isArray(lastPage) || lastPage.length === 0 || lastPage.length < pageSize) return undefined;
   return lastPageParam + 1;
 }

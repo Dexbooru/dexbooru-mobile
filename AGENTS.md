@@ -28,6 +28,6 @@ Cookie jar only (`dexbooru-session`, persisted with SecureStore). Login posts th
 
 ## API base
 
-`EXPO_PUBLIC_API_URL` (see `.env.example`). Default `http://localhost:5173`.
+`EXPO_PUBLIC_API_URL` from Expo `.env` files. Development (`.env.development`) is `http://localhost:5173`. Production / build mode (`.env.production`) is `https://dexbooru.neetbyte.fun`.
 
 Start the bundler with `npm start` (LAN). Do not use `expo start --tunnel`; Expo's ngrok wrapper crashes with `CommandError` … `reading 'body'` when the tunnel API omits `error.body`.

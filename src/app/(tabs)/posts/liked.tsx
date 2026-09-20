@@ -1,11 +1,5 @@
-import { ScreenStub } from '@/components/screen-stub';
+import { PostFeedScreen } from '@/components/posts/post-feed-screen';
 
 export default function LikedPostsScreen() {
-  return (
-    <ScreenStub
-      title="Liked posts"
-      description="Same list API as the grid with category=liked. Requires session cookie."
-      webPath="/posts/liked"
-    />
-  );
+  return <PostFeedScreen category="liked" />;
 }
